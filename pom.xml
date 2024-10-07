@@ -14,16 +14,33 @@
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
+        <junit.jupiter.version>5.9.3</junit.jupiter.version> <!-- Define the JUnit version -->
+        <mockito.version>5.3.1</mockito.version> <!-- Define the Mockito version -->
     </properties>
 
     <dependencies>
-        <!-- Example dependency: JUnit for testing -->
+        <!-- JUnit 5 dependency for testing -->
         <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>4.12</version>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <version>${junit.jupiter.version}</version>
             <scope>test</scope>
         </dependency>
+
+        <!-- Mockito dependency for mocking -->
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-core</artifactId>
+            <version>${mockito.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-collections4</artifactId>
+            <version>4.4</version> <!-- You can check for the latest version if needed -->
+        </dependency>
+
     </dependencies>
 
     <build>
