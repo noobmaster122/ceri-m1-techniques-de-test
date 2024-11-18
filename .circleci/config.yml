@@ -24,12 +24,14 @@ jobs:
           command: mvn checkstyle:check
       - store_test_results:
           path: target/surefire-reports
+      - store_artifacts:
+          path: target/surefire-reports
+      - store_artifacts:
+          path: target/checkstyle-result.xml
       - save_cache:
           key: cache-{{ checksum "/tmp/CIRCLECI_CACHE_KEY" }}
           paths:
             - ~/.m2/repository
-      - store_artifacts:
-          path: target/checkstyle-result.xml
   codecov-upload:
     docker:
       - image: cimg/openjdk:17.0
