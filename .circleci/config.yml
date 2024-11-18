@@ -41,6 +41,6 @@ workflows:
   build-and-test:
     jobs:
       - test-java
-      - codecov/upload:
+      - codecov-upload:
           requires:
             - test-java
