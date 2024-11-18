@@ -23,6 +23,7 @@ jobs:
           name: Run Checkstyle
           command: mvn checkstyle:check
       - store_test_results:
+          destination: myartifact
           path: target/surefire-reports
       - save_cache:
           key: cache-{{ checksum "/tmp/CIRCLECI_CACHE_KEY" }}
