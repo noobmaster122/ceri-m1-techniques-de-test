@@ -2,7 +2,7 @@ version: 2.1
 
 orbs:
   codecov: codecov/codecov@4.0.1
-  maven: circleci/maven@3.4.0
+  maven: circleci/maven@1.4
 
 jobs:
   test-java:
