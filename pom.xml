@@ -14,8 +14,9 @@
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
-        <junit.jupiter.version>5.9.3</junit.jupiter.version> <!-- Define the JUnit version -->
-        <mockito.version>5.3.1</mockito.version> <!-- Define the Mockito version -->
+        <junit.jupiter.version>5.9.3</junit.jupiter.version>
+        <mockito.version>5.3.1</mockito.version>
+        <jacoco.version>0.8.8</jacoco.version>
     </properties>
 
     <dependencies>
@@ -38,9 +39,8 @@
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-collections4</artifactId>
-            <version>4.4</version> <!-- You can check for the latest version if needed -->
+            <version>4.4</version>
         </dependency>
-
     </dependencies>
 
     <build>
@@ -53,6 +53,46 @@
                 <configuration>
                     <source>17</source>
                     <target>17</target>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <version>${jacoco.version}</version>
+                <executions>
+                    <!-- Default JaCoCo report generation during test phase -->
+                    <execution>
+                        <goals>
+                            <goal>prepare-agent</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>report</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>report</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-checkstyle-plugin</artifactId>
+                <version>3.2.0</version>
+                <executions>
+                    <execution>
+                        <phase>validate</phase> <!-- Run Checkstyle during the validate phase -->
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <configLocation>config/checkstyle/google_checks.xml</configLocation>
+                    <configLocation>google_checks.xml</configLocation> <!-- Use a predefined ruleset -->
+                    <encoding>UTF-8</encoding>
+                    <consoleOutput>true</consoleOutput>
+                    <failOnViolation>true</failOnViolation>
                 </configuration>
             </plugin>
         </plugins>
