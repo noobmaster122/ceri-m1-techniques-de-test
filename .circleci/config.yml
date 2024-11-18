@@ -28,6 +28,14 @@ jobs:
           key: cache-{{ checksum "/tmp/CIRCLECI_CACHE_KEY" }}
           paths:
             - ~/.m2/repository
+  codecov-upload:
+    docker:
+      - image: cimg/openjdk:17.0
+    steps:
+      - checkout
+      - codecov/upload:
+          file: target/site/jacoco/jacoco.xml  # Path to your Jacoco report
+
 
 workflows:
   build-and-test:
@@ -36,5 +44,3 @@ workflows:
       - codecov/upload:
           requires:
             - test-java
-          with:
-            file: target/site/jacoco/jacoco.xml
