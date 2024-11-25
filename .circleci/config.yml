@@ -25,6 +25,8 @@ jobs:
       - run:
           name: Run Checkstyle
           command: mvn checkstyle:check
+      - store_jacoco_results:
+          path: target/site/jacoco
       - store_test_results:
           path: target/surefire-reports
       - store_artifacts:
