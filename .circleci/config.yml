@@ -20,6 +20,9 @@ jobs:
       - run:
           command: mvn verify
       - run:
+          name: jacoco report generation
+          command: mvn jacoco:report
+      - run:
           name: Run Checkstyle
           command: mvn checkstyle:check
       - store_test_results:
@@ -40,7 +43,7 @@ jobs:
       - codecov/upload:
           file: target/site/jacoco/jacoco.xml  # Path to your Jacoco report
 
-
+#test line
 workflows:
   build-and-test:
     jobs:
