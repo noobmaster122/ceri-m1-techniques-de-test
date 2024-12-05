@@ -29,20 +29,5 @@ jobs:
       - run:
           name: Jacoco report generation
           command: mvn jacoco:report
-      - codecov/upload
-          
-#          - run:
-#          name: Run Checkstyle
-#          command: mvn checkstyle:check
-#            - store_artifacts:
-#                path: target/site/jacoco
-#            - store_test_results:
-#                path: target/surefire-reports
-#            - store_artifacts:
-#                path: target/surefire-reports
-#            - store_artifacts:
-#                path: target/checkstyle-result.xml
-#            - save_cache:
-#                key: cache-{{ checksum "/tmp/CIRCLECI_CACHE_KEY" }}
-#                paths:
-#                  - ~/.m2/repository
+      - codecov/upload:
+          file: target/site/jacoco/jacoco.xml
