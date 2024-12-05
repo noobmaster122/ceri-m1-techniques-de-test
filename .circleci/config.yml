@@ -8,7 +8,6 @@ workflows:
   build-and-test:
     jobs:
       - test-java
-      - codecov/upload
 
 jobs:
   test-java:
@@ -43,3 +42,4 @@ jobs:
           key: cache-{{ checksum "/tmp/CIRCLECI_CACHE_KEY" }}
           paths:
             - ~/.m2/repository
+      - codecov/upload
