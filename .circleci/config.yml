@@ -29,7 +29,7 @@ jobs:
       - run:
           name: Jacoco report generation
           command: mvn jacoco:report
-      - codecov/upload:
+      - codecov/upload
           
 #          - run:
 #          name: Run Checkstyle
