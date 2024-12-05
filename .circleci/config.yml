@@ -8,15 +8,9 @@ workflows:
   build-and-test:
     jobs:
       - test-java
-  upload-to-codecov:
-    jobs:
-      - checkout
       - codecov/upload
 
 jobs:
-  checkout:
-    steps:
-      - checkout
   test-java:
     docker:
       - image: cimg/openjdk:17.0
