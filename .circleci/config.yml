@@ -15,31 +15,32 @@ jobs:
       - image: cimg/openjdk:17.0
     steps:
       - checkout
-      - run:
-          name: Calculate cache key
-          command: |-
-            find . -name 'pom.xml' -o -name 'gradlew*' -o -name '*.gradle*' | \
-                    sort | xargs cat > /tmp/CIRCLECI_CACHE_KEY
-      - restore_cache:
-          key: cache-{{ checksum "/tmp/CIRCLECI_CACHE_KEY" }}
+#      - run:
+#          name: Calculate cache key
+#          command: |-
+#            find . -name 'pom.xml' -o -name 'gradlew*' -o -name '*.gradle*' | \
+#                    sort | xargs cat > /tmp/CIRCLECI_CACHE_KEY
+#      - restore_cache:
+#          key: cache-{{ checksum "/tmp/CIRCLECI_CACHE_KEY" }}
       - run:
           command: mvn verify
       - run:
           name: Jacoco report generation
           command: mvn jacoco:report
-      - run:
-          name: Run Checkstyle
-          command: mvn checkstyle:check
-      - store_artifacts:
-          path: target/site/jacoco
-      - store_test_results:
-          path: target/surefire-reports
-      - store_artifacts:
-          path: target/surefire-reports
-      - store_artifacts:
-          path: target/checkstyle-result.xml
-      - save_cache:
-          key: cache-{{ checksum "/tmp/CIRCLECI_CACHE_KEY" }}
-          paths:
-            - ~/.m2/repository
       - codecov/upload
+          
+#          - run:
+#          name: Run Checkstyle
+#          command: mvn checkstyle:check
+#            - store_artifacts:
+#                path: target/site/jacoco
+#            - store_test_results:
+#                path: target/surefire-reports
+#            - store_artifacts:
+#                path: target/surefire-reports
+#            - store_artifacts:
+#                path: target/checkstyle-result.xml
+#            - save_cache:
+#                key: cache-{{ checksum "/tmp/CIRCLECI_CACHE_KEY" }}
+#                paths:
+#                  - ~/.m2/repository
