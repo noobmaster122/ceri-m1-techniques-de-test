@@ -1,8 +1,10 @@
 BRAHIMI Farouk. <br>
 Groupe IA Classique. <br>
-Un badge pour CircleCI.<br>
+
+[![CircleCI](https://dl.circleci.com/status-badge/img/circleci/L6vpXiq9YwGH4XxwSs8c7k/UfmCiGyAjKYrxisSzkjKyh/tree/main.svg?style=svg)](https://dl.circleci.com/status-badge/redirect/circleci/L6vpXiq9YwGH4XxwSs8c7k/UfmCiGyAjKYrxisSzkjKyh/tree/main)<br>
 Un badge pour la couverture de test. <br>
-Un badge pour checkstyle
+![Checkstyle Status](https://img.shields.io/badge/Checkstyle-Passing-brightgreen)
+
 
 # UCE Génie Logiciel Avancé : Techniques de tests
 
