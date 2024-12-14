@@ -48,20 +48,19 @@ jobs:
     steps:
       - checkout
       - run:
+          name: Configure Git with Token Authentication
+          command: |
+            git config user.name "noobmaster122"
+            git config user.email "brahimi.a.farouk@gmail.com"
+            echo "https://${DEPLOYMENT_TOKEN}@github.com" > ~/.git-credentials
+            git config credential.helper store
+      - run:
           name: Generate Javadoc
           command: mvn javadoc:javadoc
       - run:
-          name: Setup SSH known hosts
-          command: |
-            mkdir -p ~/.ssh
-            ssh-keyscan github.com >> ~/.ssh/known_hosts
-      - run:
           name: Deploy Javadoc to GitHub Pages
           command: |
-            # Configurer git pour publier sur GitHub Pages
-            git config user.name "noobmaster122"
-            git config user.email "brahimi.a.farouk@gmail.com"
-            git clone --branch gh-pages git@github.com:noobmaster122/ceri-m1-techniques-de-test.git gh-pages
+            git clone --branch gh-pages https://github.com/noobmaster122/ceri-m1-techniques-de-test.git gh-pages
             rm -rf gh-pages/*
             cp -r target/site/apidocs/* gh-pages/
             cd gh-pages
