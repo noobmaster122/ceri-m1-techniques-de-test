@@ -47,13 +47,13 @@ jobs:
       - image: cimg/openjdk:17.0
     steps:
       - checkout
-      - run:
-          name: Configure Git with Token Authentication
-          command: |
-            git config --global user.name "noobmaster122"
-            git config --global user.email "brahimi.a.farouk@gmail.com"
-            echo "https://${DEPLOYMENT_TOKEN}@github.com" > ~/.git-credentials
-            git config credential.helper store
+#      - run:
+#          name: Configure Git with Token Authentication
+#          command: |
+#            git config --global user.name "noobmaster122"
+#            git config --global user.email "brahimi.a.farouk@gmail.com"
+#            echo "https://${DEPLOYMENT_TOKEN}@github.com" > ~/.git-credentials
+#            git config credential.helper store
       - run:
           name: Generate Javadoc
           command: mvn javadoc:javadoc
