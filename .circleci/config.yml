@@ -19,6 +19,9 @@ jobs:
       - run:
           name: Run Checkstyle
           command: mvn checkstyle:checkstyle
+      - store_artifacts:
+          path: target/checkstyle-result.xml
+          destination: checkstyle
   test-java:
     docker:
       - image: cimg/openjdk:17.0
@@ -33,3 +36,6 @@ jobs:
           command: mvn jacoco:report
       - codecov/upload:
           file: target/site/jacoco/jacoco.xml
+      - store_artifacts:
+          path: target/site/jacoco/jacoco.xml
+          destination: jacoco
