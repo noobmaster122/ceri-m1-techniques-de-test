@@ -51,6 +51,9 @@ jobs:
           name: Generate Javadoc
           command: mvn javadoc:javadoc
       - run:
+          name: Add GitHub to known hosts
+          command: ssh-keyscan github.com >> ~/.ssh/known_hosts
+      - run:
           name: Deploy Javadoc to GitHub Pages
           command: |
             # Configurer git pour publier sur GitHub Pages
