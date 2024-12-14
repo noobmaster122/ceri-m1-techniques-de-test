@@ -29,17 +29,26 @@ public class PokemonTrainer {
 		this.pokedex = pokedex;
 	}
 	
-	/** Name getter. **/
+	/**
+	 * Name getter.
+	 * @return String
+	 * **/
 	public String getName() {
 		return name;
 	}
 
-	/** Team getter. **/
+	/**
+	 * Team getter.
+	 * @return Team
+	 * **/
 	public Team getTeam() {
 		return team;
 	}
 	
-	/** Pokedex getter. **/
+	/**
+	 * Pokedex getter.
+	 * @return IPokedex
+	 * **/
 	public IPokedex getPokedex() {
 		return pokedex;
 	}

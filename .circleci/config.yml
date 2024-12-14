@@ -9,6 +9,9 @@ workflows:
     jobs:
       - checkstyle
       - test-java
+      - publish-docs:
+          requires:
+            - test-java
 
 jobs:
   checkstyle:
@@ -39,3 +42,24 @@ jobs:
       - store_artifacts:
           path: target/site/jacoco/jacoco.xml
           destination: jacoco
+  publish-docs:
+    docker:
+      - image: circleci/openjdk:17-jdk
+    steps:
+      - checkout
+      - run:
+          name: Generate Javadoc
+          command: mvn javadoc:javadoc
+      - run:
+          name: Deploy Javadoc to GitHub Pages
+          command: |
+            # Configurer git pour publier sur GitHub Pages
+            git config user.name "noobmaster122"
+            git config user.email "brahimi.a.farouk@gmail.com"
+            git clone --branch gh-pages git@github.com:noobmaster122/ceri-m1-techniques-de-test.git gh-pages
+            rm -rf gh-pages/*
+            cp -r target/site/apidocs/* gh-pages/
+            cd gh-pages
+            git add .
+            git commit -m "Update Javadoc [skip ci]"
+            git push origin gh-pages
