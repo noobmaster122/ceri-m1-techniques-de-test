@@ -52,15 +52,16 @@ jobs:
           command: |
             git config --global user.name "noobmaster122"
             git config --global user.email "brahimi.a.farouk@gmail.com"
-#            echo "https://${DEPLOYMENT_TOKEN}@github.com" > ~/.git-credentials
-#            git config credential.helper store
+            echo "am token ${DEPLOYMENT_TOKEN}"
+            echo "https://${DEPLOYMENT_TOKEN}@github.com" > ~/.git-credentials
+            git config credential.helper store
       - run:
           name: Generate Javadoc
           command: mvn javadoc:javadoc
       - run:
           name: Deploy Javadoc to GitHub Pages
           command: |
-            git clone --branch gh-pages https://${DEPLOYMENT_TOKEN}@github.com/noobmaster122/ceri-m1-techniques-de-test.git gh-pages
+            git clone --branch gh-pages https://$DEPLOYMENT_TOKEN@github.com/noobmaster122/ceri-m1-techniques-de-test.git gh-pages
             rm -rf gh-pages/*
             cp -r target/site/apidocs/* gh-pages/
             cd gh-pages
