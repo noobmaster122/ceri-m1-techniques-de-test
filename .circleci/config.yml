@@ -52,7 +52,7 @@ jobs:
           command: |
             git config --global user.name "noobmaster122"
             git config --global user.email "brahimi.a.farouk@gmail.com"
-            echo "am token ${DEPLOYMENT_TOKEN}"
+            echo "am token ${{ vars.DEPLOYMENT_TOKEN }}"
             echo "https://${DEPLOYMENT_TOKEN}@github.com" > ~/.git-credentials
             cat ~/.git-credentials
             git config credential.helper store
