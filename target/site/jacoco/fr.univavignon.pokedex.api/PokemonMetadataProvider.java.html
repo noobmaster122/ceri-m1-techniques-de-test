@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="fr"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>PokemonMetadataProvider.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">My Simple Project</a> &gt; <a href="index.source.html" class="el_package">fr.univavignon.pokedex.api</a> &gt; <span class="el_source">PokemonMetadataProvider.java</span></div><h1>PokemonMetadataProvider.java</h1><pre class="source lang-java linenums">package fr.univavignon.pokedex.api;
+
+import java.util.HashMap;
+import java.util.Map;
+
+/**
+ * Provides metadata for Pokémon.
+ * This class allows access to Pokémon metadata by their index.
+ */
+public class PokemonMetadataProvider implements IPokemonMetadataProvider {
+
+    /**
+     * Map storing Pokemon metadata with their index as the key.
+     */
+    private final Map&lt;Integer, PokemonMetadata&gt; metadataMap;
+
+    /**.
+     * Maximum index for Pokemon
+     */
+    private static final int MAX_POKEMON_INDEX = 150;
+
+    /**
+     * Constructor for PokemonMetadataProvider.
+     * Initializes a new container for Pokémon metadata.
+     */
+<span class="fc" id="L26">    public PokemonMetadataProvider() {</span>
+<span class="fc" id="L27">        this.metadataMap = new HashMap&lt;&gt;();</span>
+<span class="fc" id="L28">    }</span>
+
+    /**
+     * Returns the metadata of a Pokémon specified by its index.
+     *
+     * @param index The index of the Pokémon in the Pokédex.
+     * @return The metadata of the Pokémon corresponding to the given index.
+     * @throws PokedexException If index invalid or metadata not found.
+     */
+    @Override
+    public PokemonMetadata getPokemonMetadata(final int index)
+            throws PokedexException {
+<span class="fc bfc" id="L40" title="All 4 branches covered.">        if (index &lt;= 0 || index &gt; MAX_POKEMON_INDEX) {</span>
+<span class="fc" id="L41">            throw new PokedexException(&quot;Invalid index: &quot; + index);</span>
+        }
+
+<span class="fc" id="L44">        PokemonMetadata metadata = metadataMap.get(index);</span>
+<span class="fc bfc" id="L45" title="All 2 branches covered.">        if (metadata == null) {</span>
+<span class="fc" id="L46">            throw new PokedexException(&quot;Metadata not found for index: &quot;</span>
+                    + index);
+        }
+<span class="fc" id="L49">        return metadata;</span>
+    }
+
+    /**
+     * Adds or updates metadata for a Pokémon.
+     *
+     * @param index   The index of the Pokémon.
+     * @param name    The name of the Pokémon.
+     * @param attack  The attack value of the Pokémon.
+     * @param defense The defense value of the Pokémon.
+     * @param stamina The stamina value of the Pokémon.
+     */
+    public void addOrUpdateMetadata(final int index, final String name,
+                                    final int attack,
+                                    final int defense, final int stamina) {
+<span class="fc bfc" id="L64" title="All 4 branches covered.">        if (index &lt;= 0 || index &gt; MAX_POKEMON_INDEX) {</span>
+<span class="fc" id="L65">            throw new IllegalArgumentException(&quot;Invalid index: &quot;</span>
+                    + index);
+        }
+<span class="fc" id="L68">        metadataMap.put(index, new PokemonMetadata(index, name, attack,</span>
+                defense, stamina));
+<span class="fc" id="L70">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

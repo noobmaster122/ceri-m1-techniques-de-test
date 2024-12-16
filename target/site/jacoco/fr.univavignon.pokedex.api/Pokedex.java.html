@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="fr"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Pokedex.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">My Simple Project</a> &gt; <a href="index.source.html" class="el_package">fr.univavignon.pokedex.api</a> &gt; <span class="el_source">Pokedex.java</span></div><h1>Pokedex.java</h1><pre class="source lang-java linenums">package fr.univavignon.pokedex.api;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+
+/**
+ * Implementation of the IPokedex interface.
+ * Represents a Pokedex.
+ * Provides methods to manage a collection of Pokemon.
+ *
+ * Author: noobmaster122
+ */
+public class Pokedex implements IPokedex {
+
+    /**.
+     * Provider for Pokemon Metadata
+     */
+    private final IPokemonMetadataProvider metadataProvider;
+
+    /**
+     * The IPokemonFactory instance used for creating Pokemon instances.
+     */
+    private final IPokemonFactory pokemonFactory;
+
+    /**
+     * The list of Pokemons in the Pokedex.
+     */
+<span class="fc" id="L30">    private final List&lt;Pokemon&gt; pokemons = new ArrayList&lt;&gt;();</span>
+
+    /**
+     *Constructs a Pokedex with given providers.
+     *
+     * @param metadataProv The metadata provider to use.
+     * @param pokemonFact The Pokemon factory to use.
+     */
+    public Pokedex(
+            final IPokemonMetadataProvider metadataProv,
+            final IPokemonFactory pokemonFact
+<span class="fc" id="L41">    ) {</span>
+<span class="fc" id="L42">        this.metadataProvider = metadataProv;</span>
+<span class="fc" id="L43">        this.pokemonFactory = pokemonFact;</span>
+<span class="fc" id="L44">    }</span>
+
+    /**
+     * Returns the number of Pokemon in the Pokedex.
+     *
+     * @return The number of Pokemon in the Pokedex.
+     */
+    @Override
+    public int size() {
+<span class="fc" id="L53">        return pokemons.size();</span>
+    }
+
+    /**
+     * Adds a Pokemon to the Pokedex.
+     *
+     * @param pokemon The Pokemon to add.
+     * @return The index of the added Pokemon in the Pokedex.
+     */
+    @Override
+    public int addPokemon(final Pokemon pokemon) {
+<span class="fc" id="L64">        pokemons.add(pokemon);</span>
+<span class="fc" id="L65">        return pokemons.indexOf(pokemon);</span>
+    }
+
+    /**
+     * Retrieves a Pokemon from the Pokedex based on its ID.
+     *
+     * @param id The ID of the Pokemon to retrieve.
+     * @return The Pokemon with the specified ID.
+     * @throws PokedexException If the specified ID is invalid.
+     */
+    @Override
+    public Pokemon getPokemon(final int id) throws PokedexException {
+<span class="fc bfc" id="L77" title="All 4 branches covered.">        if (id &lt; 0 || id &gt;= pokemons.size()) {</span>
+<span class="fc" id="L78">            throw new PokedexException(&quot;Invalid ID specified: &quot; + id);</span>
+        }
+<span class="fc" id="L80">        return pokemons.get(id);</span>
+    }
+
+
+    /**
+     * Returns an unmodifiable list of all Pokemon in the Pokedex.
+     *
+     * @return An unmodifiable list of all Pokemon.
+     */
+    @Override
+    public List&lt;Pokemon&gt; getPokemons() {
+<span class="fc" id="L91">        return Collections.unmodifiableList(pokemons);</span>
+    }
+
+    /**
+     * @param order The comparator used for sorting the Pokemon list.
+     * @return all Pokemon sorted by the specified comparator.
+     */
+    @Override
+    public List&lt;Pokemon&gt; getPokemons(final Comparator&lt;Pokemon&gt; order) {
+<span class="fc" id="L100">        List&lt;Pokemon&gt; sortedPokemons = new ArrayList&lt;&gt;(pokemons);</span>
+<span class="fc" id="L101">        sortedPokemons.sort(order);</span>
+<span class="fc" id="L102">        return Collections.unmodifiableList(sortedPokemons);</span>
+    }
+
+    /**
+     * Creates a new Pokemon instance with the specified attributes.
+     *
+     * @param index The index of the Pokemon.
+     * @param combatPower The combat power of the Pokemon.
+     * @param hitPoints The hit points of the Pokemon.
+     * @param upgradeDust The required dust for upgrading the Pokemon.
+     * @param upgradeCandy The required candy for upgrading the Pokemon.
+     * @return The newly created Pokemon instance.
+     */
+    @Override
+    public Pokemon createPokemon(
+            final int index,
+            final int combatPower,
+            final int hitPoints,
+            final int upgradeDust,
+            final int upgradeCandy
+    ) {
+<span class="fc" id="L123">        return pokemonFactory.createPokemon(</span>
+                index, combatPower, hitPoints, upgradeDust, upgradeCandy
+        );
+    }
+
+
+    /**
+     * Retrieves the metadata for a Pokemon with the specified index.
+     *
+     * @param index The index of the Pokemon.
+     * @return The metadata for the Pokemon.
+     * @throws PokedexException If metadata retrieval fails.
+     */
+    @Override
+    public PokemonMetadata getPokemonMetadata(final int index) throws
+            PokedexException {
+        try {
+<span class="fc" id="L140">            return metadataProvider.getPokemonMetadata(index);</span>
+<span class="fc" id="L141">        } catch (Exception e) {</span>
+<span class="fc" id="L142">            throw new PokedexException(</span>
+                    &quot;Failed to retrieve metadata for Pokemon with index &quot;
+                            + index + &quot;.&quot;
+            );
+        }
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

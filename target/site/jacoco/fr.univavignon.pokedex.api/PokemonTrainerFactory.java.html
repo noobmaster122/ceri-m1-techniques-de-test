@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="fr"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>PokemonTrainerFactory.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">My Simple Project</a> &gt; <a href="index.source.html" class="el_package">fr.univavignon.pokedex.api</a> &gt; <span class="el_source">PokemonTrainerFactory.java</span></div><h1>PokemonTrainerFactory.java</h1><pre class="source lang-java linenums">package fr.univavignon.pokedex.api;
+
+/**
+ * Factory class for creating Pokemon trainers.
+ * Offers functionality to create trainers with specific teams and Pokedexes.
+ */
+public class PokemonTrainerFactory implements IPokemonTrainerFactory {
+
+    /**
+     * Metadata provider used by the factory.
+     */
+    private final IPokemonMetadataProvider metadataProvider;
+
+    /**
+     * Pokemon factory used by the factory.
+     */
+    private final IPokemonFactory pokemonFactory;
+
+    /**
+     * Constructs factory with specified metadata provider,Pokemon factory.
+     *
+     * @param metadataProv Metadata provider to use.
+     * @param pokemonFact  Pokemon factory to use.
+     */
+    public PokemonTrainerFactory(final IPokemonMetadataProvider metadataProv,
+<span class="fc" id="L26">                                 final IPokemonFactory pokemonFact) {</span>
+<span class="fc" id="L27">        this.metadataProvider = metadataProv;</span>
+<span class="fc" id="L28">        this.pokemonFactory = pokemonFact;</span>
+<span class="fc" id="L29">    }</span>
+
+    /**
+     * Creates Pokemon trainer with specified name, team,Pokedex factory.
+     *
+     * @param name            Trainer's name.
+     * @param team            Trainer's team.
+     * @param pokedexFactory  Factory for the trainer's Pokedex.
+     * @return Newly created Pokemon trainer.
+     */
+    @Override
+    public PokemonTrainer createTrainer(final String name, final Team team,
+                                        final IPokedexFactory pokedexFactory) {
+<span class="fc" id="L42">        IPokedex pokedex = pokedexFactory.createPokedex(</span>
+                metadataProvider,
+                pokemonFactory
+        );
+<span class="fc" id="L46">        return new PokemonTrainer(name, team, pokedex);</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

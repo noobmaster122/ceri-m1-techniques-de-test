@@ -1,10 +1,17 @@
 BRAHIMI Farouk. <br>
 Groupe IA Classique. <br>
 
-[![CircleCI](https://dl.circleci.com/status-badge/img/circleci/L6vpXiq9YwGH4XxwSs8c7k/UfmCiGyAjKYrxisSzkjKyh/tree/main.svg?style=svg)](https://dl.circleci.com/status-badge/redirect/circleci/L6vpXiq9YwGH4XxwSs8c7k/UfmCiGyAjKYrxisSzkjKyh/tree/main)<br>
-Un badge pour la couverture de test. <br>
-![Checkstyle Status](https://img.shields.io/badge/Checkstyle-Passing-brightgreen)
 
+| CircleCi   | [![CircleCI](https://dl.circleci.com/status-badge/img/circleci/L6vpXiq9YwGH4XxwSs8c7k/UfmCiGyAjKYrxisSzkjKyh/tree/master.svg?style=svg)](https://dl.circleci.com/status-badge/redirect/circleci/L6vpXiq9YwGH4XxwSs8c7k/UfmCiGyAjKYrxisSzkjKyh/tree/master) |
+|------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Checkstyle | ![Checkstyle Status](https://img.shields.io/badge/Checkstyle-Passing-brightgreen)                                                                                                                                                                          |
+| Codcov     |                                                                                                                                                                                                                                                            |
+| JavaDoc    | [![JavaDoc](https://img.shields.io/badge/JavaDoc-Online-green)](https://noobmaster122.github.io/ceri-m1-techniques-de-test/)                                                                                                                               |
+
+
+Note : Pour Codecov, j'ai rencontré des problèmes de configuration avec la plateforme que je n'ai pas pu résoudre. Cependant,
+la couverture de code de mon projet est de 100 %, comme l'indique la capture d'écran ci-dessous.
+![Alt text for the image](src/main/resources/images/img.png)
 
 # UCE Génie Logiciel Avancé : Techniques de tests
 

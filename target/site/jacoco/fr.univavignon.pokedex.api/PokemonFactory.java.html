@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="fr"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>PokemonFactory.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">My Simple Project</a> &gt; <a href="index.source.html" class="el_package">fr.univavignon.pokedex.api</a> &gt; <span class="el_source">PokemonFactory.java</span></div><h1>PokemonFactory.java</h1><pre class="source lang-java linenums">package fr.univavignon.pokedex.api;
+
+import java.util.Random;
+
+/**
+ * Implementation of the IPokemonFactory interface.
+ *
+ * This class represents a factory for creating Pokemon instances.
+ * It provides a method to create a Pokemon with computed IVs.
+ *
+ * Author: noobmaster122
+ */
+public class PokemonFactory implements IPokemonFactory {
+
+    /**
+     * The metadata provider used for retrieving Pokemon metadata.
+     */
+    private final IPokemonMetadataProvider metadataProvider;
+
+    /**
+     * Constructs a PokemonFactory with the given metadata provider.
+     *
+     * @param provider The metadata provider to use.
+     */
+<span class="fc" id="L25">    public PokemonFactory(final IPokemonMetadataProvider provider) {</span>
+<span class="fc" id="L26">        this.metadataProvider = provider;</span>
+<span class="fc" id="L27">    }</span>
+
+    /**
+     *
+     * @param index The index of the Pokemon.
+     * @param cp The combat power of the Pokemon.
+     * @param hp The hit points of the Pokemon.
+     * @param dust The required dust for upgrading the Pokemon.
+     * @param candy The required candy for upgrading the Pokemon.
+     * @return The created Pokemon instance.
+     */
+    @Override
+    public Pokemon createPokemon(final int index, final int cp, final int hp,
+                                 final int dust, final int candy) {
+        try {
+<span class="fc" id="L42">            PokemonMetadata pokemonMetadata = metadataProvider</span>
+<span class="fc" id="L43">                    .getPokemonMetadata(index);</span>
+
+<span class="fc" id="L45">            Random rand = new Random();</span>
+
+<span class="fc" id="L47">            final int maxiv = 16;</span>
+<span class="fc" id="L48">            int ivAttack = rand.nextInt(maxiv);</span>
+<span class="fc" id="L49">            int ivDefense = rand.nextInt(maxiv);</span>
+<span class="fc" id="L50">            int ivStamina = rand.nextInt(maxiv);</span>
+
+<span class="fc" id="L52">            double iv = calculateIV(ivAttack, ivDefense, ivStamina);</span>
+
+<span class="fc" id="L54">            return new Pokemon(index, pokemonMetadata.getName(),</span>
+<span class="fc" id="L55">                    pokemonMetadata.getAttack() + ivAttack,</span>
+<span class="fc" id="L56">                    pokemonMetadata.getDefense() + ivDefense,</span>
+<span class="fc" id="L57">                    pokemonMetadata.getStamina() + ivStamina,</span>
+                    cp, hp, dust, candy, iv);
+
+<span class="fc" id="L60">        } catch (PokedexException e) {</span>
+<span class="fc" id="L61">            System.err.println(&quot;Error while retrieving Pokemon metadata: &quot;</span>
+<span class="fc" id="L62">                    + e.getMessage());</span>
+<span class="fc" id="L63">            return null;</span>
+        }
+    }
+
+    /**
+     * Calculates the IV of a Pokemon based on its attack
+     * defense, and stamina IVs.
+     *
+     * @param ivAttack The attack IV.
+     * @param ivDefense The defense IV.
+     * @param ivStamina The stamina IV.
+     * @return The calculated IV value.
+     */
+    private double calculateIV(final int ivAttack,
+                               final int ivDefense, final int ivStamina) {
+<span class="fc" id="L78">        final int maxivvalue = 45;</span>
+<span class="fc" id="L79">        final int maxiv = 100;</span>
+<span class="fc" id="L80">        return ((double) (ivAttack + ivDefense + ivStamina)</span>
+                / maxivvalue) * maxiv;
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>
